@@ -36,8 +36,24 @@ def update_estado_mesa(db: Session, mesa_id: int, nuevo_estado: EstadoMesa):
     mesa = db.query(Mesa).filter(Mesa.id == mesa_id).first()
     if not mesa:
         raise HTTPException(status_code=404, detail="Mesa no encontrada")
-    
-    mesa.estado = nuevo_estado
+
+    if nuevo_estado == EstadoMesa.ocupada:
+        # Registrar estado temporal por 2 horas desde ahora
+        ahora = datetime.now(ZoneInfo("America/Bogota"))
+        estado_temp = EstadoMesaTemporal(
+            mesa_id=mesa_id,
+            fecha_hora_inicio=ahora,
+            fecha_hora_fin=ahora + timedelta(hours=2)
+        )
+        db.add(estado_temp)
+    elif nuevo_estado == EstadoMesa.libre:
+        # Eliminar bloques activos actuales
+        ahora = datetime.now(ZoneInfo("America/Bogota"))
+        db.query(EstadoMesaTemporal).filter(
+            EstadoMesaTemporal.mesa_id == mesa_id,
+            EstadoMesaTemporal.fecha_hora_fin > ahora
+        ).delete()
+
     db.commit()
     db.refresh(mesa)
     return mesa
@@ -51,6 +67,7 @@ def verificar_disponibilidad(db: Session, fecha_hora: datetime, num_huespedes: i
     disponibles = []
 
     for mesa in mesas:
+        # 1. Verificar conflictos con reservas confirmadas
         reservas_conflictivas = db.query(Reserva).filter(
             and_(
                 Reserva.mesa_id == mesa.id,
@@ -58,13 +75,22 @@ def verificar_disponibilidad(db: Session, fecha_hora: datetime, num_huespedes: i
                 Reserva.fecha_hora_inicio < fin,
                 Reserva.fecha_hora_fin > inicio
             )
-        ).all()
+        ).first()
 
-        if not reservas_conflictivas:
+        # 2. Verificar si hay bloqueos temporales (mesa ocupada por estado manual)
+        bloque_temporal = db.query(EstadoMesaTemporal).filter(
+            and_(
+                EstadoMesaTemporal.mesa_id == mesa.id,
+                EstadoMesaTemporal.fecha_hora_inicio < fin,
+                EstadoMesaTemporal.fecha_hora_fin > inicio
+            )
+        ).first()
+
+        # 3. Solo incluir mesas que no tengan conflictos
+        if not reservas_conflictivas and not bloque_temporal:
             disponibles.append(mesa)
 
     return disponibles
-
 
 def crear_reserva(db: Session, reserva: ReservaCreate):
     # 1. Parsear fecha y hora

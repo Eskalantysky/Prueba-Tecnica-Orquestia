@@ -1,10 +1,11 @@
 from database import engine, Base, SessionLocal
 from models import Mesa
 from enums import EstadoMesa
-import sqlalchemy
-import os
 
 def crear_datos_si_no_existen():
+    # ✅ Crear las tablas si no existen antes de consultar
+    Base.metadata.create_all(bind=engine)
+
     db = SessionLocal()
     if db.query(Mesa).count() > 0:
         print("⚠️  Ya existen mesas en la base de datos. No se crearon nuevos datos.")
