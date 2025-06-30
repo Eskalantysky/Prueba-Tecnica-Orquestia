@@ -11,8 +11,8 @@ Esta es una **API RESTful desarrollada en Python utilizando FastAPI**, orientada
 1. Clonar el repositorio:
 
 ```
-git clone https://github.com/usuario/gestion-mesas-api.git
-cd gestion-mesas-api
+git clone https://github.com/Eskalantysky/Prueba-Tecnica-Orquestia.git
+cd Prueba-Tecnica-Orquestia
 ```
 
 2. Crear entorno virtual y activar:
@@ -28,9 +28,15 @@ pip install -r requirements.txt
 ```
 
 4. Inicializar la base de datos con datos de prueba:
+Antes de Iniciar el servidor, es importante crear la bases de datos ejecutando init_db.py, para ejecutarlo inicia con el comando
+
 ```
 python init_db.py
 ```
+
+Luego de ejecutar el programa init_db.py le aparecerá un menú
+Para crear la base de datos por primera vez presiona 1.
+De otra forma, si desea reiniciar la base de datos presiona 2 y 3 para salir del menú.
 
 5. Ejecutar el servidor FastAPI:
 ```
