@@ -6,7 +6,7 @@ Esta es una **API RESTful desarrollada en Python utilizando FastAPI**, orientada
 
 ---
 
-## 🚀 Funcionalidades Principales
+## Funcionalidades Principales
 
 | Endpoint                             | Método | Descripción                                                                 |
 |--------------------------------------|--------|-----------------------------------------------------------------------------|
@@ -82,3 +82,20 @@ Value: Clave_OrquestIA
   "hora": "19:00",
   "num_huespedes": 2
 }
+
+## Requisitos Técnicos
+
+-Python 3.10+
+-FastAPI
+-SQLAlchemy
+-Pydantic
+-Uvicorn
+-n8n (Cloud o local)
+
+## Autor
+
+Andrés Escalante
+Desarrollador Backend | Ingeniero de Datos
+
+https://github.com/Eskalantysky
+https://www.linkedin.com/in/andr%C3%A9s-felipe-escalante-quintero-99721420b/
