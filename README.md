@@ -27,7 +27,24 @@ source venv/bin/activate  # En Linux/macOS
 pip install -r requirements.txt
 ```
 
-4. Inicializar la base de datos con datos de prueba:
+4. Crear el archivo `.env` con la clave de autenticación API:
+
+Copia el archivo de ejemplo: .env.example
+
+```
+cp .env.example .env # En Linux/Mac
+copy .env.example .env # En Windows CMD
+```
+
+Abre el archivo `.env` y revisa que contenga la siguiente línea:
+
+```
+API_KEY=Clave_OrquestIA
+```
+
+Esta clave se usa para autenticar los endpoints protegidos (PUT y POST).
+
+5. Inicializar la base de datos con datos de prueba:
 
 [IMPORTANTE] Antes de Iniciar el servidor, es importante crear la bases de datos ejecutando init_db.py, para ejecutarlo inicia con el comando
 
@@ -41,7 +58,7 @@ Para crear la base de datos por primera vez presiona 1.
 
 De otra forma, si desea reiniciar la base de datos presiona 2 y 3 para salir del menú.
 
-5. Ejecutar el servidor FastAPI:
+6. Ejecutar el servidor FastAPI:
 ```
 uvicorn main:app --reload
 ```
