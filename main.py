@@ -3,6 +3,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 from models import Base
+from security import verificar_api_key
 import crud, schemas
 import models
 
@@ -22,14 +23,14 @@ def listar_mesas(db: Session = Depends(get_db)):
     return crud.get_mesas(db)
 
 @app.put("/mesas/{id_mesa}/estado", response_model=schemas.MesaOut)
-def cambiar_estado_mesa(id_mesa: int, body: schemas.MesaEstadoUpdate, db: Session = Depends(get_db)):
+def cambiar_estado_mesa(id_mesa: int, body: schemas.MesaEstadoUpdate, db: Session = Depends(get_db), api_key: str = Depends(verificar_api_key)):
     mesa = crud.update_estado_mesa(db, id_mesa, body.estado)
     if not mesa:
         raise HTTPException(status_code=404, detail="Mesa no encontrada")
     return mesa
 
 @app.post("/reservas/disponibilidad")
-def consultar_disponibilidad(payload: DisponibilidadRequest, db: Session = Depends(get_db)):
+def consultar_disponibilidad(payload: DisponibilidadRequest, db: Session = Depends(get_db), api_key: str = Depends(verificar_api_key)):
     from datetime import datetime, timedelta
 
     try:
@@ -46,7 +47,7 @@ def consultar_disponibilidad(payload: DisponibilidadRequest, db: Session = Depen
     return mesas_disponibles
 
 @app.post("/reservas", response_model=schemas.ReservaOut)
-def crear_reserva(body: schemas.ReservaCreate, db: Session = Depends(get_db)):
+def crear_reserva(body: schemas.ReservaCreate, db: Session = Depends(get_db), api_key: str = Depends(verificar_api_key)):
     return crud.crear_reserva(db, body)
 
 @app.get("/reservas/{id_reserva}", response_model=schemas.ReservaOut)
@@ -57,7 +58,7 @@ def obtener_reserva(id_reserva: int, db: Session = Depends(get_db)):
     return reserva
 
 @app.put("/reservas/{id_reserva}/cancelar", response_model=schemas.ReservaOut)
-def cancelar_reserva(id_reserva: int, db: Session = Depends(get_db)):
+def cancelar_reserva(id_reserva: int, db: Session = Depends(get_db), api_key: str = Depends(verificar_api_key)):
     reserva = crud.cancelar_reserva(db, id_reserva)
     if not reserva:
         raise HTTPException(status_code=404, detail="Reserva no encontrada")
