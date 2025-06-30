@@ -82,7 +82,7 @@ Value: Clave_OrquestIA
   "hora": "19:00",
   "num_huespedes": 2
 }
-
+---
 ## Requisitos Técnicos
 
 -Python 3.10+
@@ -91,7 +91,7 @@ Value: Clave_OrquestIA
 -Pydantic
 -Uvicorn
 -n8n (Cloud o local)
-
+---
 ## Autor
 
 Andrés Escalante
