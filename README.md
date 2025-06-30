@@ -131,8 +131,6 @@ Value: Clave_OrquestIA
 
 Esta API fue integrada exitosamente con n8n, una plataforma de automatización de flujos, para demostrar visión de producto y facilidad de integración externa.
 
-![Texto alternativo](imagenes/1.png)
-
 ¿Qué hace el flujo?
 
 1. Se activa a través de un Webhook que recibe un JSON con la siguiente estructura:
@@ -156,6 +154,8 @@ Esta API fue integrada exitosamente con n8n, una plataforma de automatización d
 ## Estructura del Workflow en n8n
 
 El flujo está compuesto por 3 nodos:
+
+![Texto alternativo](imagenes/1.png)
 
 1. Webhook
 
