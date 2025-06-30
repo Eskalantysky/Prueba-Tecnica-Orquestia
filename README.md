@@ -6,6 +6,39 @@ Esta es una **API RESTful desarrollada en Python utilizando FastAPI**, orientada
 
 ---
 
+## Instalación y Puesta en Marcha
+
+1. Clonar el repositorio:
+
+```
+git clone https://github.com/usuario/gestion-mesas-api.git
+cd gestion-mesas-api
+```
+
+2. Crear entorno virtual y activar:
+```
+python -m venv venv
+venv\Scripts\activate  # En Windows
+source venv/bin/activate  # En Linux/macOS
+```
+
+3. Instalar dependencias:
+```
+pip install -r requirements.txt
+```
+
+4. Inicializar la base de datos con datos de prueba:
+```
+python init_db.py
+```
+
+5. Ejecutar el servidor FastAPI:
+```
+uvicorn main:app --reload
+```
+
+---
+
 ## Funcionalidades Principales
 
 | Endpoint                             | Método | Descripción                                                                 |
