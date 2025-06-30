@@ -172,7 +172,7 @@ El flujo está compuesto por 3 nodos:
 
 - Body en formato JSON:
 
-```json
+```
 {
   "fecha": "{{$json["body"]["fecha"]}}",
   "hora": "{{$json["body"]["hora"]}}",
@@ -185,7 +185,7 @@ El flujo está compuesto por 3 nodos:
 - Devuelve como respuesta el resultado del nodo anterior.
 
 - Cuerpo:
-```json
+```
 {{$node["HTTP Request"].json}}
 ```
 
