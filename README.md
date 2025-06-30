@@ -35,7 +35,9 @@ python init_db.py
 ```
 
 Luego de ejecutar el programa init_db.py le aparecerá un menú
+
 Para crear la base de datos por primera vez presiona 1.
+
 De otra forma, si desea reiniciar la base de datos presiona 2 y 3 para salir del menú.
 
 5. Ejecutar el servidor FastAPI:
@@ -123,6 +125,69 @@ Value: Clave_OrquestIA
 }
 ```
 
+---
+
+## Integración con n8n
+
+Esta API fue integrada exitosamente con n8n, una plataforma de automatización de flujos, para demostrar visión de producto y facilidad de integración externa.
+
+¿Qué hace el flujo?
+
+1. Se activa a través de un Webhook que recibe un JSON con la siguiente estructura:
+
+```json
+{
+  "fecha": "2025-06-30",
+  "hora": "19:00",
+  "num_huespedes": 2
+}
+```
+
+2. El webhook activa el flujo de trabajo en n8n.
+
+3. Luego, se realiza una petición HTTP POST al endpoint de esta API /reservas/disponibilidad.
+
+4. El resultado (lista de mesas disponibles) es devuelto como respuesta del webhook.
+
+## Estructura del Workflow en n8n
+
+El flujo está compuesto por 3 nodos:
+
+1. Webhook
+
+- `Método`: POST
+
+- `Path`: /consulta-mesas
+
+- Recibe un JSON desde cualquier cliente externo.
+
+
+2. HTTP Request
+
+- `Método`: POST
+
+- `URL`: La URL pública de tu API (ej. generada con ngrok)
+
+- Recibe un JSON desde cualquier cliente externo. Ejemplo: https://abcd1234.ngrok.io/reservas/disponibilidad
+
+- Body en formato JSON:
+
+```json
+{
+  "fecha": "{{$json["body"]["fecha"]}}",
+  "hora": "{{$json["body"]["hora"]}}",
+  "num_huespedes": {{$json["body"]["num_huespedes"]}}
+}
+```
+
+3. Respond to Webhook
+
+- Devuelve como respuesta el resultado del nodo anterior.
+
+- Cuerpo:
+```json
+{{$node["HTTP Request"].json}}
+```
 
 ---
 ## Requisitos Técnicos
