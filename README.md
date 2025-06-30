@@ -28,7 +28,8 @@ pip install -r requirements.txt
 ```
 
 4. Inicializar la base de datos con datos de prueba:
-Antes de Iniciar el servidor, es importante crear la bases de datos ejecutando init_db.py, para ejecutarlo inicia con el comando
+
+[IMPORTANTE] Antes de Iniciar el servidor, es importante crear la bases de datos ejecutando init_db.py, para ejecutarlo inicia con el comando
 
 ```
 python init_db.py
