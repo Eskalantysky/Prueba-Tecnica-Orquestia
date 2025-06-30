@@ -22,15 +22,18 @@ Esta es una **API RESTful desarrollada en Python utilizando FastAPI**, orientada
 
 ## Arquitectura del Proyecto
 
-├── main.py ← Archivo principal con la definición de rutas
-├── crud.py ← Lógica de negocio y funciones CRUD
-├── models.py ← Modelos SQLAlchemy (ORM)
-├── schemas.py ← Modelos Pydantic para validación y serialización
-├── enums.py ← Definición de Enums personalizados
-├── database.py ← Conexión y configuración de SQLite con SQLAlchemy
-├── security.py ← Middleware de protección con API Key
-├── init_db.py ← Script para crear y poblar la base de datos
-└── README.md ← Documentación completa del proyecto
+```
+├── main.py         ← Archivo principal con la definición de rutas
+├── crud.py         ← Lógica de negocio y funciones CRUD
+├── models.py       ← Modelos SQLAlchemy (ORM)
+├── schemas.py      ← Modelos Pydantic para validación y serialización
+├── enums.py        ← Definición de Enums personalizados
+├── database.py     ← Conexión y configuración de SQLite con SQLAlchemy
+├── security.py     ← Middleware de protección con API Key
+├── init_db.py      ← Script para crear y poblar la base de datos
+└── README.md       ← Documentación completa del proyecto
+```
+
 
 ---
 
